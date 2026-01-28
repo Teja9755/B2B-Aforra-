@@ -1,0 +1,26 @@
+# Core Django
+Django==5.2.9
+
+# Django REST Framework
+djangorestframework==3.16.1
+
+# Database driver for PostgreSQL
+psycopg2-binary==2.9.11
+
+# Database URL parser for Django
+dj-database-url==1.2.0
+
+# Asynchronous task queue
+celery==5.6.2
+
+# Celery beat scheduler for periodic tasks
+django-celery-beat==2.8.1
+
+# Redis as Celery broker/cache
+redis==7.1.0
+
+# Faker for seed data
+Faker==40.1.2
+
+# JWT authentication for DRF
+djangorestframework-simplejwt==5.5.0
