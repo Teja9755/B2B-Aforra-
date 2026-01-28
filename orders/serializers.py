@@ -22,7 +22,6 @@ class OrderSerializer(serializers.ModelSerializer):
         items_data = validated_data.pop("items")
 
         with transaction.atomic():
-            # Create the order
             order = Order.objects.create(**validated_data)
 
             # Check inventory for each item
@@ -59,7 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
                     quantity_requested=item["quantity_requested"]
                 )
 
-            # Confirm order
+            
             order.status = "CONFIRMED"
             order.save()
 
@@ -73,4 +72,5 @@ class OrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ["id", "status", "created_at", "total_items"]
+
 
