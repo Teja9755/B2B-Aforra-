@@ -10,7 +10,7 @@ class ProductSearchAPIView(APIView):
     def get(self, request):
         queryset = Product.objects.all()
 
-        # Keyword search
+        
         q = request.GET.get('q')
         if q:
             queryset = queryset.filter(
@@ -19,7 +19,7 @@ class ProductSearchAPIView(APIView):
                 Q(category__name__icontains=q)
             )
 
-        # Filters
+        
         category_id = request.GET.get('category')
         if category_id:
             queryset = queryset.filter(category_id=category_id)
@@ -41,7 +41,7 @@ class ProductSearchAPIView(APIView):
             if in_stock:
                 queryset = queryset.filter(inventory__quantity__gt=0)
 
-        # Sorting
+        # Sorting happens here
         sort = request.GET.get('sort')
         if sort == 'price':
             queryset = queryset.order_by('price')
@@ -50,10 +50,11 @@ class ProductSearchAPIView(APIView):
         elif sort == 'newest':
             queryset = queryset.order_by('-id')
 
-        # Pagination
+        # Pagination happens here
         paginator = PageNumberPagination()
         paginator.page_size = 20
         result_page = paginator.paginate_queryset(queryset, request)
 
         serializer = ProductSearchSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
+
